@@ -6,6 +6,7 @@ class ChatBar extends Component {
   }
 
   handleSubmit = (event) => {
+    console.log("event", event);
     if (event.key == 'Enter') {
       event.preventDefault();
       this.props.onSubmit({
@@ -18,12 +19,14 @@ class ChatBar extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="chatbar" onSubmit={this.handleSubmit}>
         <input
+          className="chatbar-username"
           type="text"
           name="username"
           defaultValue={this.props.currentUser.name} />
         <input
+          className="chatbar-message"
           type="text"
           name="content"
           placeholder="Type a message and then hit ENTER"
