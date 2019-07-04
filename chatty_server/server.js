@@ -77,7 +77,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-//  -------------THIS IS ALSO MY ATTEMPT AT DOING THE STRECTH EXERCISES -------------------
+//  -------------THIS IS MY ATTEMPT AT DOING THE STRECTH EXERCISES -------------------
 const parseMessage = (data) => {
   console.log(`User ${data.username} said ${data.content} ${data.colour}`);
   data.type = 'incomingMessage';
