@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Message from './Message.jsx';
 
+// The component that renderts the message list
 class MessageList extends Component {
   render() {
     return (

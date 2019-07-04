@@ -4,6 +4,7 @@ import MessageList from './MessageList.jsx';
 import NavBar from './NavBar.jsx';
 
 class App extends Component {
+  
   constructor(props) {
     super(props);
 
@@ -15,25 +16,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // console.log("componentDidMount <App />");
-    // setTimeout(() => {
-    //   console.log("Simulating incoming message");
-    //   // Add a new message to the list of messages in the data store
-    //   const newMessage = { id: 3, username: "Michelle", content: "Hello there!" };
-    //   const messages = this.state.messages.concat(newMessage)
-    //   // Update the state of the app component.
-    //   // Calling setState will trigger a call to render() in App and all child components.
-    //   this.setState({ messages: messages })
-    // }, 3000);
 
     this.socket = new WebSocket('ws://0.0.0.0:3001/');
 
     this.socket.onmessage = (event) => {
-      console.log(event);
       // The socket event data is encoded as a JSON string.
       // This line turns it into an object
       const data = JSON.parse(event.data);
-      console.log(data);
+
       switch (data.type) {
         case "incomingMessage":
           this.setState({
@@ -51,7 +41,7 @@ class App extends Component {
           });
           break;
         default:
-          // show an error in the console if the message type is unknown
+          // Show an error in the console if the message type is unknown
           throw new Error("Unknown event type " + data.type);
       }
     };
@@ -85,7 +75,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <h1>Chatty</h1> */}
         <NavBar onlineUser={this.state.onlineUsers}/>
         <MessageList messages={this.state.messages} />
         <ChatBar currentUser={this.state.currentUser} onSubmit={this.postMessage}
@@ -94,5 +83,6 @@ class App extends Component {
     );
   }
 }
+
 export default App;
 

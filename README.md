@@ -25,6 +25,6 @@ The chat app
 
 ### Screenshots
 
-!["Screenshot of empty Chatty app"] (https://raw.githubusercontent.com/mcherie/ChattyApp/f0d8c77fd9342145a84a1899f620bf428f81a8a1/docs/Empty%20chat.png)
+!["Screenshot of empty Chatty app"] (https://github.com/mcherie/ChattyApp/blob/master/docs/Empty%20chat.png?raw=true)
 
-!["Screenshot of empty Chatty app"] (https://raw.githubusercontent.com/mcherie/ChattyApp/f0d8c77fd9342145a84a1899f620bf428f81a8a1/docs/Chat%20sample.png)
+!["Screenshot of empty Chatty app"] (https://github.com/mcherie/ChattyApp/blob/master/docs/Chat%20sample.png?raw=true)

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 class ChatBar extends Component {
+  
   constructor(props) {
     super(props);
   }

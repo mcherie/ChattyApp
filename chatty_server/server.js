@@ -62,14 +62,14 @@ wss.on('connection', (ws) => {
         data.type = 'incomingNotification'
         break;
       default:
-        // show an error in the console if the message type is unknown
+        // Show an error in the console if the message type is unknown
         throw new Error('Unknown event type ' + data.type);
     }
 
     sendToClients(wss.clients, data);
   });
 
-  // Set up a callback for when a client closes the socket. This usually means they closed their browser.
+  // Set up a callback for when a client closes the socket. This [usually] means they closed their browser.
   ws.on('close', () => {
     console.log('Client disconnected');
 
@@ -77,7 +77,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-//  -------------THIS IS MY ATTEMPT AT DOING THE STRECTH EXERCISES -------------------
+//  -------------THIS IS MY ATTEMPT AT DOING THE STRECTH EXERCISES - UNIFINSHED -------------------
 const parseMessage = (data) => {
   console.log(`User ${data.username} said ${data.content} ${data.colour}`);
   data.type = 'incomingMessage';

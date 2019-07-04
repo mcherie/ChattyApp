@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// The component that renders the navigation bar, including the user count
 class NavBar extends Component {
   render() {
     return (
