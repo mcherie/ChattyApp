@@ -1,4 +1,4 @@
-React Boilerplate
+Chat App
 =====================
 
 A client-side single-page chat app built with ReactJS, and communicates with a server via WebSockets for multi-user real-time updates.
