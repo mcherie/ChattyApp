@@ -6,9 +6,25 @@ class ChatBar extends Component {
     super(props);
   }
 
+  handleNameChange = (event) => {
+    console.log("event", event);
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      if (this.props.currentUser.name === event.target.value) {
+        return
+      }
+
+      this.props.onNameChange({
+        content: `${this.props.currentUser.name} has changed their name to ${event.target.value}.`,
+        name: event.target.value
+      });
+    }
+  }
+
   handleSubmit = (event) => {
     console.log("event", event);
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       event.preventDefault();
 
       let user = findDOMNode(this.refs.username).value.trim()
@@ -29,7 +45,8 @@ class ChatBar extends Component {
           type="text"
           ref="username"
           name="username"
-          defaultValue={this.props.currentUser.name} />
+          defaultValue={this.props.currentUser.name}
+          onKeyPress={this.handleNameChange} />
         <input
           className="chatbar-message"
           type="text"

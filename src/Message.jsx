@@ -5,7 +5,7 @@ class Message extends Component {
     return (
       <div className="message">
         {/* <div className="username"> */}
-      <div className="message-username">
+        <div className={`message-username ${this.props.message.colour}`}>
           {this.props.message.username}
           {/* {this.props.message.message-username} */}
 
@@ -17,6 +17,9 @@ class Message extends Component {
           {/* {this.props.message.message-content} */}
 
         </div>
+        {this.props.message.image.map(function (image, index) {
+          return (<p key={index}><img className="message-image" src={image} alt={image} /></p>);
+        })}
       </div>
     );
   }

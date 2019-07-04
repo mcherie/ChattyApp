@@ -13,36 +13,88 @@ const server = express()
   .use(express.static('public'))
   .listen(PORT, '0.0.0.0', 'localhost', () => console.log(`Listening on ${ PORT }`));
 
-// 
-
-
+const colours = [
+  'user-violet', 'user-blue', 'user-brown', 'user-red'
+]
 
 // Create the WebSockets server
 const wss = new SocketServer({
   server
 });
 
+
+const postActiveUsers = (clients) => {
+  const count = clients.size
+  const data = {
+    type: 'activeUsers',
+    content: `${count} users online`
+  }
+
+  sendToClients(clients, data);
+}
+
+const sendToClients = (clients, data) => {
+  clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+}
+
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('Client connected');
+  postActiveUsers(wss.clients);
 
   ws.on('message', (msg) => {
-    const msgObj = JSON.parse(msg)
-    console.log(`User ${msgObj.username} said ${msgObj.content}`)
+    const data = JSON.parse(msg);
 
-    msgObj['id'] = uuid(); // Generate UUID
+    console.log('Raw Message', msg)
 
-    const data = JSON.stringify(msgObj);
+    switch (data.type) {
+      case 'postMessage':
+        parseMessage(data);
+        break;
 
-    wss.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(data);
-      }
-    });
+      case 'postNotification':
+        data.type = 'incomingNotification'
+        break;
+      default:
+        // show an error in the console if the message type is unknown
+        throw new Error('Unknown event type ' + data.type);
+    }
+
+    sendToClients(wss.clients, data);
   });
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
-  ws.on('close', () => console.log('Client disconnected'));
+  ws.on('close', () => {
+    console.log('Client disconnected');
+
+    postActiveUsers(wss.clients)
+  });
 });
+
+const parseMessage = (data) => {
+  console.log(`User ${data.username} said ${data.content} ${data.colour}`);
+  data.type = 'incomingMessage';
+  if (data.colour === undefined) {
+    data.colour = colours[Math.floor(Math.random() * 4)];
+  }
+  // Generate UUID
+  data['id'] = uuid();
+
+  // TODO: Update Regex to extract url
+  const images = /*data.content.match(/http(.*?)+(.)+(jpg|png|gif)/, 'gs') || */ []
+  data['image'] = images;
+
+  let content = data.content;
+
+  images.forEach((image) => {
+    content = content.replace(image, '')
+  });
+
+  data.content = content;
+}

@@ -6,7 +6,15 @@ class MessageList extends Component {
     return (
       <div className="message-list">
         {this.props.messages.map(function (message, index) {
+          if (message.type === 'incomingNotification') {
+            return (
+              <div className="notification">
+                <span className="notification-content">{message.content}</span>
+              </div>
+            )
+          }
           return <Message key={index} message={message} />
+          
         })}
       </div>
     );
