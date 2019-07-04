@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: { name: "Bob"},
+      currentUser: { name: ""},
       messages: [],
       onlineUsers: "0 Users online"
     }

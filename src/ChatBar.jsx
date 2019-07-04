@@ -41,6 +41,7 @@ class ChatBar extends Component {
     return (
       <form className="chatbar" onSubmit={this.handleSubmit}>
         <input
+          placeholder="Enter your username"
           className="chatbar-username"
           type="text"
           ref="username"
