@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 
 class ChatBar extends Component {
   constructor(props) {
@@ -9,8 +10,11 @@ class ChatBar extends Component {
     console.log("event", event);
     if (event.key == 'Enter') {
       event.preventDefault();
+
+      let user = findDOMNode(this.refs.username).value.trim()
+
       this.props.onSubmit({
-        username: this.props.currentUser.name,
+        username: user,
         content: event.target.value
       });
       event.target.value = '';
@@ -23,6 +27,7 @@ class ChatBar extends Component {
         <input
           className="chatbar-username"
           type="text"
+          ref="username"
           name="username"
           defaultValue={this.props.currentUser.name} />
         <input

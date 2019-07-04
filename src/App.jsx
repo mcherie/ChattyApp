@@ -8,16 +8,7 @@ class App extends Component {
 
     this.state = {
       currentUser: { name: "Bob" },
-      messages: [
-        {
-          username: "Bob",
-          content: "Has anyone seen my marbles?",
-        },
-        {
-          username: "Anonymous",
-          content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
-        }
-      ]
+      messages: []
     }
   }
 
@@ -34,14 +25,24 @@ class App extends Component {
     // }, 3000);
 
     this.socket = new WebSocket('ws://0.0.0.0:3001/');
-    // console.log('Connected to server')
 
+    this.socket.onmessage = (event) => {
+
+      const data = JSON.parse(event.data);
+      console.log(data);
+
+      this.setState({
+        messages: [...this.state.messages, data]
+      });
+    }
+
+    console.log('Connected to server')
   }
 
-  onSubmit = (message) => {
-    this.setState({
-      messages: [...this.state.messages, message]
-    });
+
+  addMessage = (message) => {
+    this.socket.send(JSON.stringify(message))
+    console.log(JSON.stringify(message))
   }
 
   render() {
@@ -49,7 +50,7 @@ class App extends Component {
       <div>
         {/* <h1>Chatty</h1> */}
         <MessageList messages={this.state.messages} />
-        <ChatBar currentUser={this.state.currentUser} onSubmit={this.onSubmit} />
+        <ChatBar currentUser={this.state.currentUser} onSubmit={this.addMessage} />
       </div>
     );
   }
