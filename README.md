@@ -21,3 +21,10 @@ The chat app
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+
+
+### Screenshots
+
+!["Screenshot of empty Chatty app"] (https://raw.githubusercontent.com/mcherie/ChattyApp/f0d8c77fd9342145a84a1899f620bf428f81a8a1/docs/Empty%20chat.png)
+
+!["Screenshot of empty Chatty app"] (https://raw.githubusercontent.com/mcherie/ChattyApp/f0d8c77fd9342145a84a1899f620bf428f81a8a1/docs/Chat%20sample.png)
